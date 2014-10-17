@@ -1,0 +1,126 @@
+---
+vagrantfile-local:
+    vm:
+        box: puphpet/debian75-x64
+        box_url: puphpet/debian75-x64
+        hostname: null
+        memory: '512'
+        chosen_provider: virtualbox
+        network:
+            private_network: 192.168.56.105
+            forwarded_port:
+                dLyfbfRNha7m:
+                    host: '6103'
+                    guest: '80'
+                v6lNyugD1VG8:
+                    host: '7103'
+                    guest: '443'
+        provider:
+            virtualbox:
+                modifyvm:
+                    natdnshostresolver1: on
+                setextradata:
+                    VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root: 1
+        provision:
+            puppet:
+                manifests_path: puphpet/puppet
+                manifest_file: manifest.pp
+                module_path: puphpet/puppet/modules
+                options:
+                    - '--verbose'
+                    - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                    - '--parser future'
+        synced_folder:
+            zWjaZLx0Mlua:
+                source: ./
+                target: /var/www
+                sync_type: default
+                rsync:
+                    args: '-z'
+                    exclude: .vagrant/
+                    auto: 'false'
+        usable_port_range: 2200..2250
+    ssh:
+        host: null
+        port: null
+        private_key_path: null
+        username: vagrant
+        guest_port: null
+        keep_alive: true
+        forward_agent: false
+        forward_x11: false
+        shell: 'bash -l'
+    vagrant:
+        host: detect
+server:
+    packages:
+        - vim
+        - memcached
+    dot_files:
+        -
+            bash_aliases: null
+    _prevent_empty: ''
+firewall:
+    install: '1'
+    rules: null
+apache:
+    install: '1'
+    settings:
+        user: www-data
+        group: www-data
+        default_vhost: false
+        manage_user: false
+        manage_group: false
+        sendfile: 0
+    modules:
+        - php
+        - rewrite
+    vhosts:
+        w5GhYnu69shd:
+            servername: app.audiencereport.com.local
+            docroot: /var/www
+            port: '80'
+            override:
+                - All
+            options:
+                - Indexes
+                - FollowSymLinks
+                - MultiViews
+            custom_fragment: ''
+            ssl_cert: ''
+            ssl_key: ''
+    mod_pagespeed: 0
+    mod_spdy: 0
+php:
+    install: '1'
+    version: '55'
+    composer: '1'
+    composer_home: ''
+    modules:
+        php:
+            - cli
+            - intl
+            - mcrypt
+            - curl
+            - mysql
+            - memcached
+            - mbstring
+        pear: {  }
+        pecl:
+            - pecl_http
+            - APCu
+            - PDO
+    ini:
+        display_errors: On
+        error_reporting: '-1'
+        session.save_path: /var/lib/php/session
+    timezone: America/Chicago
+xdebug:
+    install: '1'
+    settings:
+        xdebug.default_enable: '1'
+        xdebug.remote_autostart: '0'
+        xdebug.remote_connect_back: '1'
+        xdebug.remote_enable: '1'
+        xdebug.remote_handler: dbgp
+        xdebug.remote_port: '9000'
