@@ -1,0 +1,11 @@
+/user_guide
+/web.config
+assets/lesscache/
+apc.php
+composer.phar
+composer.lock
+vendor
+index.html
+.vagrant/
+puphpet/local-environment*
+.DS_Store
