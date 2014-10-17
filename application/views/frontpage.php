@@ -1,7 +1,36 @@
-<div class="container">
-   <div class="jumbotron">
-      <h2>CodeIgniter Bootstrap</h2>
-      <p>CodeIgniter Bootstrap kick starts the development process of the web development process by including Twitter Bootstrap into CodeIgniter. It also includes certain libraries such as AWS and Facebook in-case you are developing applications requiring those SDKs. So stop writing the same code over again and start working on your idea.</p>
-      <a class="btn btn-primary btn-large" href="https://github.com/sjlu/CodeIgniter-Bootstrap"> <i class="fa fa-github fa-lg"></i> View on Github</a>
-   </div>
-</div>
+<div ng-app class="container">
+        <div class="row">
+        <div class="jumbotron">
+        <h1> Best Bet Wins Prototype {{1+1}}</h1>
+        <div ng-controller="CreateBetController">
+        <div ng-repeat="betPreview in bets" class="panel panel-default">
+            <div class="panel-heading"><h2> Bet Title: {{betPreview.title}}</h2></div>
+            <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="question in betPreview.questions">
+                    {{question.text}} Answer: {{question.answered}}<br/>
+                    <div ng-repeat="answer in question.answers" class="input-group">
+<span class="input-group-addon"><input type="radio" ng-model="question.answered" value="{{$index}}"></span> {{answer.text}}
+                </div>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <form name="createBetForm">
+            <h4>Submit a bet</h4>
+                <textarea ng-model="form.betTitle" placeholder="What is the main topic of your bid..."></textarea><br/>
+                <div ng-repeat="question in form.questions">
+                    <textarea  ng-model="question.text" placeholder="Your question"></textarea>
+                    <div ng-repeat="answer in question.answers">
+                        <textarea  ng-model="answer.text" placeholder="Possible answer"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-default btn-lg" ng-click="addAnswer(question)">Add possible answer</button>
+                <br/>
+                </div>
+                <button type="button" class="btn btn-default btn-lg" ng-click="addQuestion()"><span class="glyphicon-class">Add question</span></button>
+                <button type="button" class="btn btn-default btn-lg" ng-click="addBet()">Add bet</button>
+            </form>
+            </div>
+        </div>
+     </div>
+ </div>

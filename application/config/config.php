@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'test.com.local/';
+$config['base_url']	= '/';
 
 /*
 |--------------------------------------------------------------------------
